@@ -1,0 +1,22 @@
+pragma Singleton
+
+import Quickshell
+
+Singleton {
+    id: root
+
+    property bool networkOpen: false
+    property bool batteryOpen: false
+    property bool mediaOpen: false
+
+    function closeAll() {
+        networkOpen = false;
+        batteryOpen = false;
+        mediaOpen = false;
+    }
+
+    readonly property string primaryScreen: ""
+    readonly property string jellyfinUrl: ""
+    readonly property string jellyfinApp: ""
+    readonly property string jellyfinKey: ""
+}
