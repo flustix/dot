@@ -2,7 +2,7 @@ require("parts.binds")
 require("parts.colors")
 require("parts.env")
 require("parts.env-priv")
-require("parts.exec")
+require("parts.events")
 require("parts.monitors")
 require("parts.rules")
 require("parts.workspaces")
@@ -130,5 +130,5 @@ hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 2, bezier = "almo
 
 hl.animation({ leaf = "border", enabled = true, speed = 4, bezier = "easeOutQuint" })
 
-hl.animation({ leaf = "workspaces", enabled = true, speed = 2, bezier = "almostLinear", style = "fade" })
+hl.animation({ leaf = "workspaces", enabled = true, speed = 5, bezier = "easeOutQuint", style = "slidevert" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 4, bezier = "easeOutQuint" })

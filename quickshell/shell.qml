@@ -37,6 +37,7 @@ ShellRoot {
         modelData: Quickshell.screens.find(x => x.name == Config.primaryScreen)
         panels: pnl
         bar: bp
+        topbar: tbp
 
         OutlinePanels {
             id: pnl
@@ -46,6 +47,11 @@ ShellRoot {
         Bar {
             id: bp
             clock: clock
+            outline: op
+        }
+
+        TopBar {
+            id: tbp
             outline: op
         }
     }

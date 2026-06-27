@@ -8,6 +8,7 @@ Region {
 
     required property Outline window
     required property Item bar
+    property Item topbar
     property OutlinePanels panels
 
     x: 0

@@ -35,23 +35,6 @@ Item {
         Item {
             Layout.fillWidth: true
             implicitHeight: childrenRect.height
-
-            /* Item {
-                width: childrenRect.width
-                height: childrenRect.height
-                x: (parent.width - width) / 2
-
-                readonly property HyprlandToplevel activeToplevel: {
-                    const t = Hyprland.activeToplevel;
-                    return t?.workspace?.name.startsWith("special:") || Hyprland.focusedWorkspace?.toplevels.values.length > 0 ? t : null;
-                }
-
-                Text {
-                    text: parent.activeToplevel?.wayland?.appId || ""
-                    font.pointSize: 10
-                    color: Theme.text
-                }
-            } */
         }
 
         RowLayout {

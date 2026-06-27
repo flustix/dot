@@ -3,7 +3,7 @@ version_check = false
 prefer = "saturation"
 
 [config.wallpaper]
-command = "swww"
+command = "awww"
 arguments = ["img", "-t", "center", "--transition-fps=60", "--transition-duration=2"]
 set = true
 
@@ -71,3 +71,8 @@ output_path = '~/.cache/matugen/vscode-colors.json'
 [templates.cava]
 input_path = './templates/cava'
 output_path = '~/.config/cava/themes/matugen'
+
+[templates.snappyswitcher]
+input_path = './templates/snappy-switcher.ini'
+output_path = '~/.config/snappy-switcher/themes/matugen.ini'
+post_hook = 'zsh -c "snappy-switcher quit; snappy-switcher --daemon & disown"'

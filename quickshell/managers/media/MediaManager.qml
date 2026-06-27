@@ -21,7 +21,7 @@ Singleton {
     property var lyrics: []
     property var playbackPosition: 0.0
 
-    readonly property bool showingLyrics: lr1.showing || lr2.showing
+    readonly property bool showingLyrics: playing && (lr1.showing || lr2.showing)
     property alias lr1: lr1
     property alias lr2: lr2
 

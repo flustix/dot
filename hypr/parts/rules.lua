@@ -9,7 +9,8 @@ hl.layer_rule({ -- screenshot & colorpicker
 })
 hl.layer_rule({
     match = { namespace = "vicinae" },
-    blur = true
+    blur = true,
+    animation = "popin 96%"
 })
 
 -- windows
@@ -58,4 +59,30 @@ hl.window_rule({
     float = true,
     center = true,
     size = "640 360"
+})
+
+hl.window_rule({
+    match = {
+        initial_class = "steam",
+        initial_title = "Friends List",
+    },
+    float = true,
+    size = "480 720",
+    opacity = 0.95
+})
+
+hl.window_rule({
+    match = {
+        initial_class = "^(code|discord|vesktop|jetbrains-rider|dev.zed.Zed)",
+        fullscreen = 0
+    },
+    opacity = 0.95
+})
+
+hl.window_rule({
+    match = {
+        initial_class = "^(ADanceOfFireAndIce)",
+        float = 1
+    },
+    float = 0
 })

@@ -1,9 +1,7 @@
-hl.workspace_rule({ workspace = "1", persistent = true, monitor = "HDMI-A-1" })
+hl.workspace_rule({ workspace = "1", persistent = true, monitor = "HDMI-A-2" })
 hl.workspace_rule({ workspace = "2", persistent = true, monitor = "DP-2" })
-hl.workspace_rule({ workspace = "3", persistent = true, monitor = "HDMI-A-2" })
-hl.workspace_rule({ workspace = "4", persistent = true })
-hl.workspace_rule({ workspace = "5", persistent = true })
-hl.workspace_rule({ workspace = "6", persistent = true })
-hl.workspace_rule({ workspace = "7", persistent = true })
-hl.workspace_rule({ workspace = "8", persistent = true })
-hl.workspace_rule({ workspace = "9", persistent = true })
+hl.workspace_rule({ workspace = "3", persistent = true, monitor = "HDMI-A-1" })
+
+for i = 4, 15, 1 do
+    hl.workspace_rule({ workspace = tostring(i), persistent = true })
+end

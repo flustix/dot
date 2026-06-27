@@ -6,6 +6,7 @@ import QtQuick
 import QtQuick.Effects
 
 import qs.modules
+import qs.modules.workspaces
 import qs.utils
 
 // qmllint disable uncreatable-type
@@ -13,6 +14,7 @@ PanelWindow {
     id: root
     required property var modelData
     required property Item bar
+    property Item topbar
     property OutlinePanels panels
 
     color: "transparent"
@@ -27,6 +29,7 @@ PanelWindow {
         id: regions
         window: root
         bar: root.bar
+        topbar: root.topbar
         panels: root.panels
     }
 
@@ -48,6 +51,7 @@ PanelWindow {
     property real fullscreenProgress: fullscreen ? 0 : 1
 
     property int border: fullscreenProgress * 12
+    property int topBorder: fullscreenProgress * (topbar?.height || 12)
     property int bottomBorder: fullscreenProgress * bar.height
     property int radius: fullscreenProgress * 20
 
@@ -61,6 +65,7 @@ PanelWindow {
     Exclusions {
         screen: root.modelData
         bar: root.bar
+        topbar: root.topbar
     }
 
     Rectangle {
@@ -87,8 +92,27 @@ PanelWindow {
         Rectangle {
             anchors.fill: parent
             anchors.margins: root.border
+            anchors.topMargin: root.topBorder
             anchors.bottomMargin: root.bottomBorder
             radius: root.radius
+        }
+    }
+
+    WorkspaceDisplay {
+        outline: root
+    }
+
+    Rectangle {
+        width: parent.width
+        height: parent.height
+        z: 500
+        opacity: Globals.dimmed ? 1 : 0
+        color: '#000'
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 600
+            }
         }
     }
 }

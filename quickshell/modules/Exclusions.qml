@@ -7,6 +7,7 @@ Scope {
 
     required property ShellScreen screen
     required property Item bar
+    property Item topbar
 
     readonly property int width: 12
 
@@ -31,7 +32,7 @@ Scope {
     Zone {
         anchors.top: true
         screen: root.screen
-        implicitHeight: root.width
+        implicitHeight: root.topbar?.height || root.width
     }
 
     // qmllint disable uncreatable-type
