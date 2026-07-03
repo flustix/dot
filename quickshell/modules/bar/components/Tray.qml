@@ -28,7 +28,7 @@ RowLayout {
         implicitWidth: 4
     }
 
-    MouseArea {
+    /* MouseArea {
         implicitWidth: 24
         implicitHeight: 24
         visible: UPower.devices.values.length
@@ -44,7 +44,7 @@ RowLayout {
             path: Icons.resolve(Icons.getBattery(UPower.devices.values[0]))
             color: Icons.getBatteryColor(UPower.devices.values[0])
         }
-    }
+    } */
 
     MouseArea {
         implicitWidth: 24

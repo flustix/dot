@@ -38,8 +38,7 @@ hl.window_rule({
         class = "jetbrains-rider",
         float = true
     },
-    no_blur = true,
-    no_initial_focus = true
+    no_blur = true
 })
 
 hl.window_rule({

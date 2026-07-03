@@ -36,7 +36,6 @@ Item {
 
             ColumnLayout {
                 spacing: -2
-                Layout.alignment: Qt.AlignLeft
                 opacity: !MediaManager.showingLyrics ? 1 : 0
 
                 Behavior on opacity {
@@ -60,7 +59,6 @@ Item {
 
             RowLayout {
                 anchors.fill: parent
-                Layout.alignment: Qt.AlignLeft
                 opacity: MediaManager.showingLyrics ? 1 : 0
 
                 Behavior on opacity {

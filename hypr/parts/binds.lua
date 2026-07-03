@@ -78,12 +78,12 @@ hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- Scrolling using Volume Knob
 hl.bind(
     "XF86AudioRaiseVolume",
-    hl.dsp.exec_cmd('evemu-event /dev/input/event22 --type EV_REL --code REL_WHEEL --value 1 --sync'),
+    hl.dsp.exec_cmd('sh ~/scripts/volume-scroll.sh 1'),
     { locked = true, repeating = true }
 )
 hl.bind(
     "XF86AudioLowerVolume",
-    hl.dsp.exec_cmd('evemu-event /dev/input/event22 --type EV_REL --code REL_WHEEL --value -1 --sync'),
+    hl.dsp.exec_cmd('sh ~/scripts/volume-scroll.sh -1'),
     { locked = true, repeating = true }
 )
 
