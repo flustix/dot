@@ -6,9 +6,8 @@ hl.on("hyprland.start", function()
 
     -- background --
     hl.exec_cmd("kdeconnectd");
-    hl.exec_cmd("/usr/bin/openrgb --startminimized");
+    hl.exec_cmd("gio launch /home/flux/.config/autostart/OpenRGB.desktop");
     hl.exec_cmd("systemctl --user start hyprpolkitagent");
-    hl.exec_cmd("WEBKIT_DISABLE_COMPOSITING_MODE=1 rquickshare");
     hl.exec_cmd("snappy-switcher --daemon");
 
     -- foreground --

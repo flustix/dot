@@ -12,6 +12,10 @@ hl.layer_rule({
     blur = true,
     animation = "popin 96%"
 })
+hl.layer_rule({
+    match = { namespace = "kitty-panel" },
+    blur = false
+})
 
 -- windows
 hl.window_rule({
@@ -62,6 +66,18 @@ hl.window_rule({
 
 hl.window_rule({
     match = {
+        initial_class = "org.quickshell"
+    },
+    float = true,
+    center = true,
+    size = "256 256",
+    border_size = 0,
+    no_blur = true,
+    no_shadow = true
+})
+
+hl.window_rule({
+    match = {
         initial_class = "steam",
         initial_title = "Friends List",
     },
@@ -79,9 +95,9 @@ hl.window_rule({
 })
 
 hl.window_rule({
+    name = "hide-from-screenshare",
     match = {
-        initial_class = "^(ADanceOfFireAndIce)",
-        float = 1
+        initial_class = "^(Proton Pass)"
     },
-    float = 0
+    no_screen_share = true
 })

@@ -8,6 +8,7 @@ import QtQuick.Layouts
 
 import qs.components
 import qs.managers.net
+import qs.modules.stickers
 import qs.utils
 
 RowLayout {
@@ -28,7 +29,7 @@ RowLayout {
         implicitWidth: 4
     }
 
-    /* MouseArea {
+    MouseArea {
         implicitWidth: 24
         implicitHeight: 24
         visible: UPower.devices.values.length
@@ -44,7 +45,7 @@ RowLayout {
             path: Icons.resolve(Icons.getBattery(UPower.devices.values[0]))
             color: Icons.getBatteryColor(UPower.devices.values[0])
         }
-    } */
+    }
 
     MouseArea {
         implicitWidth: 24
@@ -72,6 +73,23 @@ RowLayout {
         TintedIcon {
             size: 24
             path: Icons.resolve("image")
+        }
+    }
+
+    MouseArea {
+        implicitWidth: 24
+        implicitHeight: 24
+
+        onClicked: CLI.run("zsh", ["-c", "find ~/Pictures/Stickers -type f | sort | vicinae dmenu"], res => {
+            if (!res.success)
+                return;
+
+            StickerManager.addSticker(res.output);
+        })
+
+        TintedIcon {
+            size: 24
+            path: Icons.resolve("sticker")
         }
     }
 }

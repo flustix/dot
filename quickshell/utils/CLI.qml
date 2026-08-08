@@ -7,6 +7,10 @@ import QtQuick
 Singleton {
     id: root
 
+    function nu(script: string, args: string, callback: var) {
+        run("zsh", ["-c", `nu ${script} ${args}`], callback);
+    }
+
     function run(cmd: string, args: list<string>, callback: var) {
         const proc = commandProc.createObject(root);
         proc.cmdArgs = [cmd, ...args];

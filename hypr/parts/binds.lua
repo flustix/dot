@@ -36,7 +36,7 @@ hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"))
 
 hl.bind("SUPER + C", hl.dsp.window.close())
 hl.bind("SUPER + V", hl.dsp.exec_cmd(menu .. " vicinae://launch/clipboard/history"))
-hl.bind("SUPER + M", function() Minimize("finamp", "/opt/finamp/finamp") end)
+hl.bind("SUPER + M", function() Minimize("finamp", "flatpak run com.unicornsonlsd.finamp") end)
 
 hl.bind("SUPER + Left", hl.dsp.focus({ direction = "l" }))
 hl.bind("SUPER + Up", hl.dsp.focus({ direction = "u" }))
@@ -63,6 +63,7 @@ end
 
 -- Mod-Control
 hl.bind("SUPER + CONTROL + S", hl.dsp.workspace.toggle_special())
+hl.bind("SUPER + CONTROL + F", hl.dsp.window.fullscreen())
 
 hl.bind("SUPER + CONTROL + C", hl.dsp.window.kill())
 
@@ -119,8 +120,8 @@ hl.bind(
 )
 
 -- Zooming
-hl.bind("SUPER + SHIFT + mouse_up", function() SetZoom(zoom - 1) end)
-hl.bind("SUPER + SHIFT + mouse_down", function() SetZoom(zoom + 1) end)
+hl.bind("SUPER + SHIFT + mouse_up", function() SetZoom(zoom + 1) end)
+hl.bind("SUPER + SHIFT + mouse_down", function() SetZoom(zoom - 1) end)
 hl.bind("SUPER + SHIFT + Escape", function() SetZoom(1) end)
 
 -- Mod-Ctrl-Scroll to switch between windows in groups

@@ -24,12 +24,12 @@ Singleton {
         onFileChanged: root.readFile()
     }
 
-    function openWallpaperSwitcher() {
-        CLI.run("zsh", ["-c", "find ~/Pictures/Wallpapers -type f | sort | vicinae dmenu"], res => {
-            if (!res.success)
+    function openWallpaperSwitcher(folder = "~/Pictures/Wallpapers") {
+        CLI.nu("~/.config/quickshell/wallpaper.nu", `${folder}`, res => {
+            /* if (!res.success)
                 return;
 
-            CLI.run("matugen", ["image", res.output, "--json", "hex", "--old-json-output"], _ => {});
+            CLI.run("matugen", ["image", res.output, "--json", "hex", "--old-json-output"], _ => {}); */
         });
     }
 

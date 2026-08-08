@@ -45,11 +45,11 @@ hl.config({
         rounding = 8,
         rounding_power = 2,
         blur = {
-            enabled = true,
+            enabled = false,
             size = 3,
             passes = 2,
             popups = true,
-            ignore_opacity = true,
+            ignore_opacity = false,
             xray = false
         }
     },
@@ -117,6 +117,7 @@ hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" }
 hl.animation({ leaf = "windows", enabled = true, speed = 4, spring = "easy" })
 hl.animation({ leaf = "windowsIn", enabled = true, speed = 4, bezier = "easeOutQuint", style = "popin 90%" })
 hl.animation({ leaf = "windowsOut", enabled = true, speed = 2, bezier = "easeOutQuint", style = "popin 90%" })
+hl.animation({ leaf = "windowsMove", enabled = true, speed = 4, bezier = "easeOutQuint", style = "popin 90%" })
 
 hl.animation({ leaf = "layers", enabled = true, speed = 4, bezier = "easeOutQuint" })
 hl.animation({ leaf = "layersIn", enabled = true, speed = 4, bezier = "easeOutQuint", style = "popin 90%" })

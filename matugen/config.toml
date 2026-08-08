@@ -76,3 +76,7 @@ output_path = '~/.config/cava/themes/matugen'
 input_path = './templates/snappy-switcher.ini'
 output_path = '~/.config/snappy-switcher/themes/matugen.ini'
 post_hook = 'zsh -c "snappy-switcher quit; snappy-switcher --daemon & disown"'
+
+[templates.intellij]
+input_path = "/home/flux/.config/JetBrains/matugen/templates/colors.json.tera"
+output_path = "/home/flux/.config/JetBrains/matugen/colors.json"
