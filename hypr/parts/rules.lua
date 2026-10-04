@@ -45,9 +45,22 @@ hl.window_rule({
     no_blur = true
 })
 
+
 hl.window_rule({
     match = {
-        initial_class = "fluXis"
+        class = "jetbrains-rider",
+        initial_title = "Welcome to JetBrains Rider",
+    },
+    float = true,
+    maximize = false,
+    center = true,
+    size = "1200 800",
+    no_blur = false
+})
+
+hl.window_rule({
+    match = {
+        initial_class = "^(fluXis|com.github.marchc1.CloneDash)"
     },
     float = true,
     maximize = false,
@@ -88,6 +101,15 @@ hl.window_rule({
 
 hl.window_rule({
     match = {
+        class = "finamp"
+    },
+    float = true,
+    size = "520 976",
+    move = "20 40"
+})
+
+hl.window_rule({
+    match = {
         initial_class = "^(code|discord|vesktop|jetbrains-rider|dev.zed.Zed)",
         fullscreen = 0
     },
@@ -100,4 +122,11 @@ hl.window_rule({
         initial_class = "^(Proton Pass)"
     },
     no_screen_share = true
+})
+
+hl.window_rule({
+    match = {
+        class = "hyprpolkitagent"
+    },
+    dim_around = true
 })

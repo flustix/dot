@@ -9,14 +9,15 @@ local zoom = 1;
 hl.bind("CONTROL + SHIFT + Escape", hl.dsp.exec_cmd(term .. " btop"))
 hl.bind("CONTROL + ALT + DELETE", hl.dsp.global("hyprflux:poweroff"))
 hl.bind("ALT + Tab", hl.dsp.exec_cmd("snappy-switcher next --mod alt"))
+hl.bind("Print", hl.dsp.exec_cmd("wayscriber --daemon-toggle"))
 
 -- Mod
 hl.bind("SUPER + Q", hl.dsp.exec_cmd(term))
-hl.bind("SUPER + W", hl.dsp.global("hyprflux:wallpaper-switch"))
+hl.bind("SUPER + W", hl.dsp.exec_cmd(menu .. " vicinae://launch/@flustix/viciflux/change-wallpaper"))
 hl.bind("SUPER + E", hl.dsp.exec_cmd("nautilus"))
 hl.bind("SUPER + R", hl.dsp.exec_cmd(menu .. " toggle"))
 hl.bind("SUPER + I", function() ToggleImmerse() end)
-hl.bind("SUPER + O", function() Minimize("com.obsproject.Studio", "/usr/bin/obs") end)
+hl.bind("SUPER + O", function() Minimize("com.obsproject.Studio", "/usr/bin/obs", false) end)
 hl.bind("SUPER + P", hl.dsp.window.pseudo())
 
 -- Super
@@ -24,8 +25,9 @@ hl.bind(
     "SUPER + D",
     function()
         Minimize(
-            "vesktop",
-            "vesktop --enable-blink-features=MiddleClickAutoscroll --disable-features=WebRtcAllowInputVolumeAdjustment"
+            "discord",
+            "discord --enable-blink-features=MiddleClickAutoscroll --disable-features=WebRtcAllowInputVolumeAdjustment",
+            true
         )
     end
 )
@@ -36,15 +38,18 @@ hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"))
 
 hl.bind("SUPER + C", hl.dsp.window.close())
 hl.bind("SUPER + V", hl.dsp.exec_cmd(menu .. " vicinae://launch/clipboard/history"))
-hl.bind("SUPER + M", function() Minimize("finamp", "flatpak run com.unicornsonlsd.finamp") end)
+hl.bind("SUPER + M", function() Minimize("finamp", "com.unicornsonlsd.finamp", false) end)
 
 hl.bind("SUPER + Left", hl.dsp.focus({ direction = "l" }))
 hl.bind("SUPER + Up", hl.dsp.focus({ direction = "u" }))
 hl.bind("SUPER + Right", hl.dsp.focus({ direction = "r" }))
 hl.bind("SUPER + Down", hl.dsp.focus({ direction = "d" }))
 
-hl.bind("SUPER + mouse_up", hl.dsp.layout("move -400"))
-hl.bind("SUPER + mouse_down", hl.dsp.layout("move 400"))
+hl.bind("SUPER + mouse_up", hl.dsp.layout("move 400"))
+hl.bind("SUPER + mouse_down", hl.dsp.layout("move -400"))
+
+hl.bind("SUPER + XF86AudioRaiseVolume", hl.dsp.layout("move 400"))
+hl.bind("SUPER + XF86AudioLowerVolume", hl.dsp.layout("move -400"))
 
 -- Mod-Shift
 hl.bind(
@@ -131,12 +136,17 @@ hl.bind("SUPER + CONTROL + mouse_down", hl.dsp.group.prev())
 -- Passtrough
 hl.bind(
     "SHIFT + pause",
-    hl.dsp.send_shortcut({ window = "class:vesktop", mods = "CONTROL SHIFT", key = "D" }),
+    hl.dsp.send_shortcut({ window = "class:discord", mods = "CONTROL SHIFT", key = "D" }),
     { transparent = true }
 )
 hl.bind(
     "pause",
-    hl.dsp.send_shortcut({ window = "class:vesktop", mods = "CONTROL SHIFT", key = "M" })
+    hl.dsp.send_shortcut({ window = "class:discord", mods = "CONTROL SHIFT", key = "M" })
+)
+
+hl.bind(
+    "scroll_lock",
+    hl.dsp.send_shortcut({ window = "class:discord", mods = "CONTROL SHIFT ALT", key = "F12" })
 )
 
 -- Functions
@@ -151,18 +161,21 @@ function ToggleImmerse()
     local mult = immerse and 0 or 1;
     hl.config({
         general = {
-            gaps_in = 2 * mult,
+            gaps_in = 4 * mult,
             gaps_out = 8 * mult,
-            border_size = 4 * mult,
+            border_size = 0 * mult,
         },
         decoration = {
-            rounding = 8 * mult,
+            rounding = 12 * mult,
         }
     })
 end
 
--- "Minimizes" a window by putting it in the special workspace
-function Minimize(class, exec)
+-- "Minimizes" a window by putting it in the special workspace.
+---@param class string The class of the window.
+---@param exec string The command to run when the window isn't opened.
+---@param close boolean Close the window instead of moving it to the special workspace.
+function Minimize(class, exec, close)
     local window = hl.get_window("class:" .. class)
 
     if not window then
@@ -173,7 +186,11 @@ function Minimize(class, exec)
     if window.workspace.name == "special:special" then
         hl.dispatch(hl.dsp.window.move({ window = window, workspace = hl.get_active_workspace() }))
     else
-        hl.dispatch(hl.dsp.window.move({ window = window, workspace = "special", follow = false }))
+        if close then
+            hl.dispatch(hl.dsp.window.close({ window = window }))
+        else
+            hl.dispatch(hl.dsp.window.move({ window = window, workspace = "special", follow = false }))
+        end
     end
 end
 

@@ -46,7 +46,7 @@ Singleton {
     // lyrics
     Connections {
         target: music.player
-
+        
         function onTrackTitleChanged() {
             music.lyrics = [];
             if (music.player?.trackTitle) {
@@ -61,12 +61,29 @@ Singleton {
         if (!title || !artist)
             return;
 
-        if (jellyfinItems.running)
-            jellyfinItems.running = false;
+        CLI.jellyfin(`/Items?recursive=true&includeItemTypes=Audio&artists=${encodeURIComponent(artist)}&searchTerm=${encodeURIComponent(title)}`, r => {
+            if (!r.success)
+                return;
 
-        let url = `${Config.jellyfinUrl}/Items?app=${Config.jellyfinApp}&api_key=${Config.jellyfinKey}&recursive=true&includeItemTypes=Audio&artists=${encodeURIComponent(artist)}&searchTerm=${encodeURIComponent(title)}`;
-        jellyfinItems.command = ["curl", url];
-        jellyfinItems.running = true;
+            let res = JSON.parse(r.output);
+            if (res.Items.length) {
+                let item = res.Items[0];
+                let id = item.Id;
+
+                CLI.jellyfin(`/Audio/${id}/Lyrics`, lyrRes => {
+                    if (!lyrRes.success)
+                        return;
+
+                    let lyr = JSON.parse(lyrRes.output);
+
+                    if (!lyr.Lyrics?.length || !lyr.Lyrics[0].Start)
+                        return;
+
+                    console.log(`[music] Loaded ${lyr.Lyrics.length} lyric lines.`);
+                    music.lyrics = lyr.Lyrics;
+                })
+            }
+        })
     }
 
     Timer {
@@ -87,38 +104,6 @@ Singleton {
         command: ["playerctl", "position"]
         stdout: StdioCollector {
             onStreamFinished: music.playbackPosition = parseFloat(this.text)
-        }
-    }
-
-    Process {
-        id: jellyfinItems
-        stdout: StdioCollector {
-            onStreamFinished: () => {
-                let res = JSON.parse(this.text);
-                if (res.Items.length) {
-                    let item = res.Items[0];
-                    let id = item.Id;
-
-                    let url = `${Config.jellyfinUrl}/Audio/${id}/Lyrics?app=${Config.jellyfinApp}&api_key=${Config.jellyfinKey}`;
-                    jellyfinLyrics.command = ["curl", url];
-                    jellyfinLyrics.running = true;
-                }
-            }
-        }
-    }
-
-    Process {
-        id: jellyfinLyrics
-        stdout: StdioCollector {
-            onStreamFinished: () => {
-                let res = JSON.parse(this.text);
-
-                if (!res.Lyrics?.length || !res.Lyrics[0].Start)
-                    return;
-
-                console.log(`[music] ${res.Lyrics.length} lines`);
-                music.lyrics = res.Lyrics;
-            }
         }
     }
 }

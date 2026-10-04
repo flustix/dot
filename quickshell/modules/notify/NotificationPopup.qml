@@ -29,7 +29,7 @@ PanelWindow {
     implicitWidth: container.width + 32
 
     readonly property bool fullscreen: Hypr.isFullscreen(screen)
-    property int paddingTop: fullscreen ? 0 : 12
+    property int paddingTop: fullscreen ? 0 : 32
 
     property var currentNotification: null
     property int yOffset: currentNotification ? 0 : -(container.height + paddingTop)
@@ -222,5 +222,11 @@ PanelWindow {
                 listener.running = true;
             }
         }
+    }
+
+    Process {
+        id: udev
+        running: true
+        command: ["/media/development/flustix/bar/hyprflux.Scripts/bin/Debug/net9.0/hyprflux.Scripts", "udev"]
     }
 }

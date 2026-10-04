@@ -1,5 +1,6 @@
 import Quickshell
 import Quickshell.Services.SystemTray
+import Quickshell.Widgets
 import QtQuick
 
 MouseArea {
@@ -11,12 +12,13 @@ MouseArea {
     height: 24
     acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
 
-    Image {
+    IconImage {
         anchors.fill: parent
         source: parent.modelData.icon || "fallback-icon-name"
     }
 
     onClicked: m => {
+        console.log(JSON.stringify(modelData));
         if (m.button === Qt.LeftButton)
             modelData.activate();
         else if (m.button === Qt.MiddleButton)

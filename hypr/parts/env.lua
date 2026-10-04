@@ -15,6 +15,8 @@ hl.env("XCURSOR_PATH", "/home/flux/.icons")
 
 hl.env("MD_DIRECTORY", "/media/windows/Program Files (x86)/Steam/steamapps/common/Muse Dash")
 
+hl.env("CHROME_EXECUTABLE", "/var/lib/flatpak/exports/bin/com.google.Chrome")
+
 --hl.env("PATH", "$PATH:/home/flux/.dotnet/tools")
 --hl.env("PATH", "$PATH:/home/flux/.bun/bin")
 --hl.env("PATH", "$PATH:/media/development/flustix/bar/hyprflux.Scripts/bin/Debug/net9.0")

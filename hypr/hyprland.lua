@@ -27,29 +27,39 @@ require("parts.workspaces")
 
 hl.config({
     general = {
-        gaps_in = 2,
+        gaps_in = 4,
         gaps_out = 8,
-        border_size = 4,
+        border_size = 0,
         col = {
             active_border = { colors = { primary, secondary }, angle = 90 },
             inactive_border = surface_bright,
         },
         resize_on_border = false,
         allow_tearing = false,
-        layout = "dwindle"
+        layout = "dwindle",
+        snap = {
+            enabled = true,
+            monitor_gap = 12,
+            respect_gaps = true
+        }
     },
     binds = {
         scroll_event_delay = 0
     },
     decoration = {
-        rounding = 8,
+        rounding = 12,
         rounding_power = 2,
+        dim_inactive = false,
+        dim_modal = true,
+        dim_strength = 0.15,
+        border_part_of_window = false,
+        dim_around = 0.9,
         blur = {
-            enabled = false,
+            enabled = true,
             size = 3,
             passes = 2,
             popups = true,
-            ignore_opacity = false,
+            ignore_opacity = true,
             xray = false
         }
     },
@@ -59,18 +69,20 @@ hl.config({
             border_inactive = surface_bright,
         },
         groupbar = {
-            font_size = 12,
+            font_size = 0,
+            render_titles = false,
             text_color = primary,
             text_color_inactive = surface_bright,
             col = {
                 active = primary,
                 inactive = surface_bright,
             },
-            indicator_gap = 4,
-            gradient_rounding = 4,
-            gaps_in = 8,
-            gaps_out = 8,
-            keep_upper_gap = true
+            indicator_gap = 0,
+            gradient_rounding = 0,
+            gaps_in = 0,
+            gaps_out = 0,
+            keep_upper_gap = false,
+            blur = true
         }
     },
     input = {

@@ -18,6 +18,10 @@ Singleton {
         Qt.callLater(() => proc.exec(proc.cmdArgs));
     }
 
+    function jellyfin(url: string, callback: var) {
+        CLI.run("curl", ["-H", `Authorization: MediaBrowser Token="${Config.jellyfinKey}"`, `${Config.jellyfinUrl}${url}`], callback);
+    }
+
     Component {
         id: commandProc
         CommandProcess {}
@@ -48,7 +52,7 @@ Singleton {
             onStreamFinished: {
                 const error = text.trim();
                 if (error && error.length > 0) {
-                    console.log(error);
+                    // console.log(error);
                 }
             }
         }

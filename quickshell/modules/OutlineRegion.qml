@@ -22,7 +22,7 @@ Region {
     }
 
     component R: Region {
-        required property Item target
+        property Item target
 
         x: target?.x ?? 0
         y: target?.y ?? 0

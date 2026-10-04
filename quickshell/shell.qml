@@ -11,6 +11,7 @@ import qs.modules.network
 import qs.modules.media
 import qs.modules.notify
 import qs.modules.power
+import qs.modules.stickers
 import qs.modules.workspaces
 import qs.utils
 
@@ -53,6 +54,10 @@ ShellRoot {
         TopBar {
             id: tbp
             outline: op
+        }
+
+        Skeleton {
+
         }
     }
 

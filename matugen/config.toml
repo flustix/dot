@@ -1,10 +1,9 @@
 [config]
-version_check = false
 prefer = "saturation"
+version_check = false
 
 [config.wallpaper]
-command = "awww"
-arguments = ["img", "-t", "center", "--transition-fps=60", "--transition-duration=2"]
+command = "awww img -t wave --transition-fps=60 --transition-duration=2 '{{ image }}'"
 set = true
 
 [templates.vicinae]
@@ -33,6 +32,10 @@ output_path = '~/.config/hypr/parts/colors.lua'
 input_path = './templates/midnight-discord.css'
 output_path = '~/.config/vesktop/themes/midnight-discord.css'
 
+[templates.equicord]
+input_path = './templates/midnight-discord.css'
+output_path = '~/.var/app/org.equicord.equibop/config/equibop/themes/midnight-discord.css'
+
 [templates.zed]
 input_path = '~/.config/matugen/templates/zed-colors.json'
 output_path = '~/.config/zed/themes/matugen.json'
@@ -40,7 +43,7 @@ output_path = '~/.config/zed/themes/matugen.json'
 [templates.steam]
 input_path = '~/.config/matugen/templates/steam.css'
 output_path = '~/.config/AdwSteamGtk/custom.css'
-post_hook =  'adwaita-steam-gtk -i'
+post_hook = 'adwaita-steam-gtk -i'
 
 [templates.gtk3]
 input_path = './templates/gtk-colors.css'
@@ -75,8 +78,20 @@ output_path = '~/.config/cava/themes/matugen'
 [templates.snappyswitcher]
 input_path = './templates/snappy-switcher.ini'
 output_path = '~/.config/snappy-switcher/themes/matugen.ini'
-post_hook = 'zsh -c "snappy-switcher quit; snappy-switcher --daemon & disown"'
+post_hook = 'zsh -c "snappy-switcher quit; (snappy-switcher --daemon & disown)"'
 
 [templates.intellij]
-input_path = "/home/flux/.config/JetBrains/matugen/templates/colors.json.tera"
-output_path = "/home/flux/.config/JetBrains/matugen/colors.json"
+input_path = "~/.config/JetBrains/matugen/templates/colors.json.tera"
+output_path = "~/.config/JetBrains/matugen/colors.json"
+
+[templates.zen-userchrome]
+input_path = './templates/zen-userchrome.css'
+output_path = '~/.var/app/app.zen_browser.zen/.zen/5x2nx2br.Default (release)/chrome/zen-uchr.css'
+
+[templates.zen-usercontent]
+input_path = './templates/zen-usercontent.css'
+output_path = '~/.var/app/app.zen_browser.zen/.zen/5x2nx2br.Default (release)/chrome/zen-uctn.css'
+
+[templates.web-colors]
+input_path = './templates/web-colors.css'
+output_path = '~/.var/app/app.zen_browser.zen/.zen/5x2nx2br.Default (release)/chrome/web-colors.css'
