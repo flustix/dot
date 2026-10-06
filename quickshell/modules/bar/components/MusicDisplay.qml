@@ -100,9 +100,9 @@ Item {
             if (m.button == Qt.RightButton)
                 MediaManager.player.next();
             if (m.button == Qt.MiddleButton) {
-                let open = Config.mediaOpen;
-                Config.closeAll();
-                Config.mediaOpen = !open;
+                let open = Globals.panelMedia;
+                Globals.closePanels();
+                Globals.panelMedia = !open;
             }
         }
         onWheel: wheel => {

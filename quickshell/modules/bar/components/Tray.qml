@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Networking
+import Quickshell.Services.Pipewire
 import Quickshell.Services.SystemTray
 import Quickshell.Services.UPower
 import QtQuick
@@ -16,7 +17,7 @@ RowLayout {
     id: root
     required property PanelWindow window
 
-    spacing: 8
+    spacing: 12
 
     Repeater {
         model: SystemTray.items
@@ -36,15 +37,15 @@ RowLayout {
         visible: UPower.devices.values.length
 
         onClicked: m => {
-            let open = Config.batteryOpen;
-            Config.closeAll();
-            Config.batteryOpen = !open;
+            let open = Globals.panelPower;
+            Globals.closePanels();
+            Globals.panelPower = !open;
         }
 
         TintedIcon {
             size: 24
-            path: Icons.resolve(Icons.getBattery(UPower.displayDevice))
-            color: Icons.getBatteryColor(UPower.displayDevice)
+            path: Icons.resolve(UPower.displayDevice.isPresent ? Icons.getBattery(UPower.displayDevice) : 'battery-full')
+            color: UPower.displayDevice.isPresent ? Icons.getBatteryColor(UPower.displayDevice) : Theme.text
         }
     }
 
@@ -54,13 +55,15 @@ RowLayout {
 
         onClicked: m => {
             let open = Globals.panelAudio;
-            Config.closeAll();
+            Globals.closePanels();
             Globals.panelAudio = !open;
         }
 
         TintedIcon {
+            readonly property PwNode node: Pipewire.defaultAudioSink
+
             size: 24
-            path: Icons.resolve('network')
+            path: Icons.resolve(Icons.volume(node.audio.volume))
         }
     }
 
@@ -71,9 +74,9 @@ RowLayout {
         property var active: Networking.devices.values.find(x => x.connected)
 
         onClicked: m => {
-            let open = Config.networkOpen;
-            Config.closeAll();
-            Config.networkOpen = !open;
+            let open = Globals.panelNetwork;
+            Globals.closePanels();
+            Globals.panelNetwork = !open;
         }
 
         TintedIcon {

@@ -40,4 +40,15 @@ Singleton {
 
         return Theme.text;
     }
+
+    function volume(num) {
+        if (num >= .5)
+            return "speaker-high";
+        if (num >= .25)
+            return "speaker-low";
+        if (num > 0)
+            return "speaker-none";
+
+        return "speaker-x";
+    }
 }

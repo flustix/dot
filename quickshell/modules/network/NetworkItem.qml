@@ -16,13 +16,15 @@ MouseArea {
 
     required property NetworkDevice modelData
 
+    readonly property WiredDevice wired: modelData as WiredDevice
+    readonly property WifiDevice wireless: modelData as WifiDevice
+
     onEntered: hover.color = Theme.hover
     onExited: hover.color = "transparent"
 
     onClicked: m => {
-        console.log(JSON.stringify(root.modelData))
-        console.log(JSON.stringify(root.modelData.networks.values))
-        /* if (modelData.connected)
+        console.log(JSON.stringify(wireless ? 'yea' : 'no'));
+    /* if (modelData.connected)
             NetworkManager.down(modelData.id);
         else
             NetworkManager.up(modelData.id); */
@@ -42,18 +44,17 @@ MouseArea {
             spacing: 12
 
             TintedIcon {
-                visible: root.modelData.type == 1
                 Layout.leftMargin: 12
                 size: 24
-                path: Qt.resolvedUrl(`${Quickshell.shellDir}/icons/${root.modelData.connected ? 'wifi-high' : 'network-x'}`)
-                opacity: root.modelData.connected ? 1 : 0.5
-            }
+                path: {
+                    if (!root.modelData.connected)
+                        return Icons.resolve('network-x');
 
-            TintedIcon {
-                visible: root.modelData.type == 2
-                Layout.leftMargin: 12
-                size: 24
-                path: Qt.resolvedUrl(`${Quickshell.shellDir}/icons/${root.modelData.connected ? 'network' : 'network-x'}`)
+                    if (root.modelData.type == DeviceType.Wifi)
+                        return Icons.resolve('wifi-high');
+
+                    return Icons.resolve('network');
+                }
                 opacity: root.modelData.connected ? 1 : 0.5
             }
 
@@ -78,7 +79,9 @@ MouseArea {
                 }
 
                 Text {
-                    text: ConnectionState.toString(root.modelData.state)
+                    text: {
+                        return ConnectionState.toString(root.modelData.state);
+                    }
                     color: Theme.subtext
                     font.pointSize: 10
                 }

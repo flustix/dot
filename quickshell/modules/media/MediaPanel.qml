@@ -19,7 +19,7 @@ Item {
     x: 12 * outline.fullscreenProgress
     y: outline.height - height - outline.bar.height
 
-    property real visibility: Config.mediaOpen ? 1 : 0
+    property real visibility: Globals.panelMedia ? 1 : 0
 
     Behavior on visibility {
         NumberAnimation {
@@ -33,7 +33,7 @@ Item {
         width: parent.width
         height: 620
         hoverEnabled: true
-        onExited: Config.mediaOpen = false
+        onExited: Globals.panelMedia = false
 
         MarginWrapperManager {
             topMargin: 16

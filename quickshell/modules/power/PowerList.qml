@@ -23,7 +23,7 @@ Item {
     x: outline.width - width - 12
     y: outline.height - height - outline.bar.height
 
-    property real visibility: Config.batteryOpen ? 1 : 0
+    property real visibility: Globals.panelPower ? 1 : 0
 
     Behavior on visibility {
         NumberAnimation {
@@ -36,7 +36,7 @@ Item {
         anchors.fill: parent
 
         hoverEnabled: true
-        onExited: Config.batteryOpen = false
+        onExited: Globals.panelPower = false
 
         MarginWrapperManager {
             topMargin: 16

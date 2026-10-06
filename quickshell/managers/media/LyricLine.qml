@@ -6,8 +6,9 @@ Item {
     id: root
 
     required property int idx
+    required property real position
 
-    property string text: getLine(MediaManager.playbackPosition)
+    property string text: getLine(position)
     property string syncedText: ""
 
     property bool showing: true
@@ -43,7 +44,7 @@ Item {
 
             for (let i = 0; i < line.Cues.length; i++) {
                 const c = line.Cues[i];
-                const part = text.substring(c.Position, c.EndPosition)
+                const part = text.substring(c.Position, c.EndPosition);
                 const start = c.Start / 10000000;
 
                 if (start <= pos)

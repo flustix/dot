@@ -21,7 +21,7 @@ Item {
     x: outline.width - width - 12
     y: outline.height - height - outline.bar.height
 
-    property real visibility: Config.networkOpen ? 1 : 0
+    property real visibility: Globals.panelNetwork ? 1 : 0
 
     Behavior on visibility {
         NumberAnimation {
@@ -41,7 +41,7 @@ Item {
         anchors.fill: parent
 
         hoverEnabled: true
-        onExited: Config.networkOpen = false
+        onExited: Globals.panelNetwork = false
 
         MarginWrapperManager {
             topMargin: 16

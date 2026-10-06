@@ -25,8 +25,8 @@ Singleton {
     property alias lr1: lr1
     property alias lr2: lr2
 
-    readonly property string title: player?.trackTitle || "no title"
-    readonly property string artist: player?.trackArtist || "no artist"
+    readonly property string title: player?.trackTitle || "No Title"
+    readonly property string artist: player?.trackArtist || "Unknown Artist"
     readonly property string cover: player?.trackArtUrl || ""
 
     readonly property bool playing: player?.isPlaying || false
@@ -36,17 +36,19 @@ Singleton {
     LyricLine {
         id: lr1
         idx: 0
+        position: music.playbackPosition
     }
 
     LyricLine {
         id: lr2
         idx: 1
+        position: music.playbackPosition
     }
 
     // lyrics
     Connections {
         target: music.player
-        
+
         function onTrackTitleChanged() {
             music.lyrics = [];
             if (music.player?.trackTitle) {
@@ -81,9 +83,9 @@ Singleton {
 
                     console.log(`[music] Loaded ${lyr.Lyrics.length} lyric lines.`);
                     music.lyrics = lyr.Lyrics;
-                })
+                });
             }
-        })
+        });
     }
 
     Timer {

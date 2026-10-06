@@ -7,12 +7,7 @@ import QtQuick
 import qs.managers
 import qs.modules
 import qs.modules.bar
-import qs.modules.network
-import qs.modules.media
 import qs.modules.notify
-import qs.modules.power
-import qs.modules.stickers
-import qs.modules.workspaces
 import qs.utils
 
 ShellRoot {
@@ -20,7 +15,7 @@ ShellRoot {
 
     // outlines
     Variants {
-        model: Quickshell.screens.filter(x => x.name != Config.primaryScreen)
+        model: Quickshell.screens.filter(x => x.name != Globals.primaryScreenId)
         Outline {
             id: o
             bar: b
@@ -35,7 +30,7 @@ ShellRoot {
 
     Outline {
         id: op
-        modelData: Quickshell.screens.find(x => x.name == Config.primaryScreen)
+        modelData: Globals.primaryScreen
         panels: pnl
         bar: bp
         topbar: tbp
@@ -58,7 +53,7 @@ ShellRoot {
     }
 
     NotificationPopup {
-        screen: Quickshell.screens.find(x => x.name == Config.primaryScreen)
+        screen: Globals.primaryScreen
     }
 
     Keybinds {}

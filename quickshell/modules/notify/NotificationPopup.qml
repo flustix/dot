@@ -61,9 +61,6 @@ PanelWindow {
     }
 
     function showNotification(notif: Notification) {
-        if (notif.body.length > 96)
-            notif.body = notif.body.substring(0, 93) + "...";
-
         notificationQueue.append(notif);
 
         if (!currentNotification)
@@ -160,7 +157,7 @@ PanelWindow {
                         }
 
                         Text {
-                            text: root.currentNotification?.body
+                            text: root.currentNotification.body?.length > 96 ? `${root.currentNotification?.body.substring(0, 93)}...` : root.currentNotification?.body
                             color: Theme.text
                             font.pointSize: 12
                         }
