@@ -1,5 +1,6 @@
 import Quickshell
 import Quickshell.Io
+import Quickshell.Services.Notifications
 import Quickshell.Wayland
 import Quickshell.Widgets
 import QtQuick
@@ -54,14 +55,12 @@ PanelWindow {
         }
     }
 
-    function showNotification(a: string, s: string, b: string, i: string) {
-        let notif = {
-            app: a || "System",
-            summary: s || "",
-            body: b || "",
-            icon: i.replace("file://", "") || ""
-        };
+    NotificationServer {
+        id: server
+        onNotification: n => root.showNotification(n)
+    }
 
+    function showNotification(notif: Notification) {
         if (notif.body.length > 96)
             notif.body = notif.body.substring(0, 93) + "...";
 
@@ -205,23 +204,6 @@ PanelWindow {
         id: nextNotification
         interval: 800
         onTriggered: root.showNext()
-    }
-
-    Process {
-        id: listener
-        running: true
-        command: ["/media/development/flustix/bar/hyprflux.Scripts/bin/Debug/net9.0/hyprflux.Scripts", "notification"]
-        stdout: StdioCollector {
-            onStreamFinished: {
-                let text = this.text.trim();
-                console.log(text);
-                const json = JSON.parse(text);
-                root.showNotification(json.app, json.summary, json.body, json.icon);
-
-                listener.running = false;
-                listener.running = true;
-            }
-        }
     }
 
     Process {

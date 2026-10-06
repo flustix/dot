@@ -1,27 +1,25 @@
 import Quickshell
-import Quickshell.Networking
-import Quickshell.Wayland
+import Quickshell.Services.Pipewire
 import Quickshell.Widgets
 import QtQuick
 
 import qs.components
-import qs.managers.net
 import qs.modules
 import qs.utils
 
-// qmllint disable uncreatable-type
 Item {
     id: root
-
     required property Outline outline
 
-    implicitHeight: (Networking.devices.values.length * 56 + 16) * visibility
+    property var outputs: Pipewire.nodes.values.filter(x => x.isSink && !x.isStream)
+
     implicitWidth: 400
+    implicitHeight: (outputs.length * 56) * visibility
 
     x: outline.width - width - 12
     y: outline.height - height - outline.bar.height
 
-    property real visibility: Config.networkOpen ? 1 : 0
+    property real visibility: Globals.panelAudio ? 1 : 0
 
     Behavior on visibility {
         NumberAnimation {
@@ -30,18 +28,11 @@ Item {
         }
     }
 
-    Timer {
-        running: Networking.canCheckConnectivity
-        interval: 1000
-        repeat: true
-        onTriggered: Networking.checkConnectivity()
-    }
-
     MouseArea {
         anchors.fill: parent
 
         hoverEnabled: true
-        onExited: Config.networkOpen = false
+        onExited: Globals.panelAudio = false
 
         MarginWrapperManager {
             topMargin: 16
@@ -57,8 +48,8 @@ Item {
                 spacing: 0
 
                 Repeater {
-                    model: Networking.devices
-                    NetworkItem {}
+                    model: root.outputs
+                    AudioEntry {}
                 }
             }
         }

@@ -110,6 +110,14 @@ hl.window_rule({
 
 hl.window_rule({
     match = {
+	class = "jetbrains-toolbox"
+    },
+    float = true,
+    move = "1460 316"
+})
+
+hl.window_rule({
+    match = {
         initial_class = "^(code|discord|vesktop|jetbrains-rider|dev.zed.Zed)",
         fullscreen = 0
     },

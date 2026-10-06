@@ -25,7 +25,7 @@ Item {
 
     RowLayout {
         Text {
-            text: root.activeToplevel?.title || ""
+            text: root.activeToplevel?.wayland.appId || ""
             font.pointSize: 10
             color: Theme.text
         }

@@ -21,6 +21,14 @@ Region {
         target: root.panels?.media
     }
 
+    R {
+        target: root.panels?.power
+    }
+
+    R {
+        target: root.panels?.network
+    }
+
     component R: Region {
         property Item target
 

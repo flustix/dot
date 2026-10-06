@@ -6,23 +6,30 @@ import QtQuick
 import QtQuick.Layouts
 
 import qs.components
+import qs.modules
 import qs.utils
 
 // qmllint disable uncreatable-type
-PanelWindow {
+Item {
     id: root
-    WlrLayershell.namespace: "qs-power"
-    WlrLayershell.layer: WlrLayer.Top
-    screen: Quickshell.screens.find(x => x.name == "DP-2")
-    visible: Config.batteryOpen
-    color: "transparent"
 
-    implicitHeight: UPower.devices.values.length * 56 + 16
+    required property Outline outline
+
+    property var items: UPower.devices.values.filter(x => x.model)
+
+    implicitHeight: (items.length * 56 + 16) * visibility
     implicitWidth: 400
 
-    anchors {
-        bottom: true
-        right: true
+    x: outline.width - width - 12
+    y: outline.height - height - outline.bar.height
+
+    property real visibility: Config.batteryOpen ? 1 : 0
+
+    Behavior on visibility {
+        NumberAnimation {
+            duration: 400
+            easing: Easing.OutExpo
+        }
     }
 
     MouseArea {
@@ -39,12 +46,13 @@ PanelWindow {
         Rectangle {
             color: Theme.base
             topLeftRadius: 16
+            clip: true
 
             Column {
                 spacing: 0
 
                 Repeater {
-                    model: UPower.devices
+                    model: root.items
 
                     Item {
                         id: item
@@ -84,9 +92,18 @@ PanelWindow {
 
                                     Text {
                                         visible: item.modelData.timeToEmpty
-                                        text: `(${item.modelData.timeToEmpty} remaining)`
+                                        text: `${Formatting.duration(item.modelData.timeToEmpty)} remaining`
                                         color: Theme.subtext
                                         font.pointSize: 10
+                                        opacity: 0.65
+                                    }
+
+                                    Text {
+                                        visible: item.modelData.timeToFull
+                                        text: `${Formatting.duration(item.modelData.timeToFull)} until full`
+                                        color: Theme.subtext
+                                        font.pointSize: 10
+                                        opacity: 0.65
                                     }
                                 }
                             }
@@ -100,7 +117,7 @@ PanelWindow {
     CornerRadius {
         implicitHeight: 32
         implicitWidth: 32
-        bottomRight: 16
+        bottomRight: 16 * root.visibility
         color: Theme.base
 
         x: -16
@@ -110,7 +127,7 @@ PanelWindow {
     CornerRadius {
         implicitHeight: 32
         implicitWidth: 32
-        bottomRight: 16
+        bottomRight: 16 * root.visibility
         color: Theme.base
 
         x: parent.width - 32

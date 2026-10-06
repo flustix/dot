@@ -55,14 +55,8 @@ ShellRoot {
             id: tbp
             outline: op
         }
-
-        Skeleton {
-
-        }
     }
 
-    NetworkList {}
-    PowerList {}
     NotificationPopup {
         screen: Quickshell.screens.find(x => x.name == Config.primaryScreen)
     }
