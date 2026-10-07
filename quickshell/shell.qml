@@ -7,6 +7,7 @@ import QtQuick
 import qs.managers
 import qs.modules
 import qs.modules.bar
+import qs.modules.lock
 import qs.modules.notify
 import qs.utils
 
@@ -22,7 +23,7 @@ ShellRoot {
 
             MiniBar {
                 id: b
-                clock: clock
+                clock: sysc
                 outline: o
             }
         }
@@ -42,7 +43,7 @@ ShellRoot {
 
         Bar {
             id: bp
-            clock: clock
+            clock: sysc
             outline: op
         }
 
@@ -56,10 +57,11 @@ ShellRoot {
         screen: Globals.primaryScreen
     }
 
+    LockOverlay {}
     Keybinds {}
 
     SystemClock {
-        id: clock
+        id: sysc
         precision: SystemClock.Seconds
     }
 }

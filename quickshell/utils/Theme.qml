@@ -10,6 +10,8 @@ Singleton {
     id: root
     Component.onCompleted: Theme.readFile()
 
+    property string image: ""
+
     property string text: "#c6d0f5"
     property string hover: "#44c6d0f5"
     property string subtext: "#a5adce"
@@ -26,7 +28,7 @@ Singleton {
 
     function openWallpaperSwitcher(folder = "~/Pictures/Wallpapers") {
         CLI.nu("~/.config/quickshell/wallpaper.nu", `${folder}`, res => {
-            /* if (!res.success)
+        /* if (!res.success)
                 return;
 
             CLI.run("matugen", ["image", res.output, "--json", "hex", "--old-json-output"], _ => {}); */
@@ -40,6 +42,7 @@ Singleton {
         const raw = themeFile.text();
         const json = JSON.parse(raw);
 
+        root.image = json.image;
         root.text = json.text;
         root.hover = json.text.replace("#", "#44");
         root.subtext = json.subtext;

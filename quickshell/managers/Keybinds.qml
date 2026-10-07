@@ -9,9 +9,9 @@ Scope {
     // qmllint disable unresolved-type
     GlobalShortcut {
         appid: "hyprflux"
-        name: "wallpaper-switch"
-        description: "Opens vicinae to change the current wallpaper and theme."
-        onPressed: Theme.openWallpaperSwitcher()
+        name: "lock"
+        description: "Lock the screen."
+        onPressed: Globals.locked = true
     }
 
     GlobalShortcut {

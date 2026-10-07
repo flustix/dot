@@ -8,9 +8,10 @@ Singleton {
     id: state
 
     readonly property ShellScreen primaryScreen: Quickshell.screens.find(x => x.name == Config.primaryScreen) ?? Quickshell.screens[0]
-    readonly property string primaryScreenId: primaryScreen.name
+    readonly property string primaryScreenId: primaryScreen?.name ?? ''
 
     property bool dimmed: false
+    property bool locked: false
 
     property bool panelAudio: false
     property bool panelNetwork: false

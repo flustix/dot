@@ -3,6 +3,7 @@ import Quickshell.Hyprland
 import Quickshell.Wayland
 import Quickshell.Widgets
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 
 import qs.modules
@@ -44,6 +45,11 @@ Item {
             RowLayout {
                 Layout.alignment: Qt.AlignRight
                 spacing: 16
+
+                Button {
+                    text: Globals.locked
+                    onClicked: () => Globals.locked = true
+                }
 
                 Tray {
                     window: root.outline

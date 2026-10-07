@@ -34,7 +34,7 @@ hl.bind(
 hl.bind("SUPER + F", hl.dsp.window.float())
 hl.bind("SUPER + G", hl.dsp.group.toggle())
 hl.bind("SUPER + J", hl.dsp.layout("rotatesplit 90"))
-hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"))
+hl.bind("SUPER + L", hl.dsp.global("hyprflux:lock"))
 
 hl.bind("SUPER + C", hl.dsp.window.close())
 hl.bind("SUPER + V", hl.dsp.exec_cmd(menu .. " vicinae://launch/clipboard/history"))
