@@ -28,7 +28,7 @@ Item {
     states: [
         State {
             name: "visible"
-            when: lock.locked && !panel.finished
+            when: lock.secure && !panel.finished
             PropertyChanges {
                 target: panel
                 transition: 0
@@ -36,7 +36,7 @@ Item {
         },
         State {
             name: "hidden"
-            when: !lock.locked || panel.finished
+            when: !lock.secure || panel.finished
             PropertyChanges {
                 target: panel
                 transition: 1
