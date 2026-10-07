@@ -85,6 +85,7 @@ Item {
                 width: parent.width
                 height: parent.height
                 source: Theme.image
+                fillMode: Image.PreserveAspectCrop
                 clip: true
                 y: -height * panel.transition
                 scale: panel.idle ? 1 : 1.2
