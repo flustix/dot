@@ -1,0 +1,27 @@
+/*
+!.gitignore
+
+!/matugen
+
+# hyprland
+!/hypr
+/hypr/parts/colors.lua
+/hypr/parts/env-priv.lua
+/hypr/colors.conf
+
+# gtk
+!/gtk-3.0
+!/gtk-4.0
+/gtk-3.0/bookmarks
+/gtk-3.0/colors.css
+/gtk-4.0/assets
+/gtk-4.0/colors.css
+
+# kitty
+!/kitty/kitty.conf
+
+# quickshell
+!/quickshell
+/quickshell/theme.json
+/quickshell/.qmlls.ini
+/quickshell/utils/Config.qml
