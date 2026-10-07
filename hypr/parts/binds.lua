@@ -149,6 +149,32 @@ hl.bind(
     hl.dsp.send_shortcut({ window = "class:discord", mods = "CONTROL SHIFT ALT", key = "F12" })
 )
 
+hl.gesture({
+    direction = "vertical",
+    action = "workspace",
+    fingers = 3,
+    scale = 1.6,
+    mods = "SUPER"
+})
+
+hl.gesture({
+    direction = "horizontal",
+    action = "scroll_move",
+    fingers = 3,
+    scale = 2,
+    mods = "SUPER"
+})
+
+hl.gesture({
+    direction = "pinch",
+    action = "cursorZoom",
+    fingers = 2,
+    mods = "SUPER SHIFT",
+    scale = 1.2,
+    zoom_level = 1,
+    mode = "live"
+})
+
 -- Functions
 function SetZoom(val)
     zoom = math.max(val, 1)
