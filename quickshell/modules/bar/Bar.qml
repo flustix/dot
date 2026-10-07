@@ -46,11 +46,6 @@ Item {
                 Layout.alignment: Qt.AlignRight
                 spacing: 16
 
-                Button {
-                    text: Globals.locked
-                    onClicked: () => Globals.locked = true
-                }
-
                 Tray {
                     window: root.outline
                 }
