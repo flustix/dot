@@ -36,7 +36,7 @@ hl.config({
         },
         resize_on_border = false,
         allow_tearing = false,
-        layout = "dwindle",
+        layout = "scrolling",
         snap = {
             enabled = true,
             monitor_gap = 12,

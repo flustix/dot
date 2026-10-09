@@ -6,6 +6,12 @@ import QtQuick
 Singleton {
     id: format
 
+    function remap(value, min, max) {
+        var t = (value - min) / (max - min);
+        t = Math.max(0, Math.min(t, 1));
+        return t;
+    }
+
     function duration(secs, short = true, showSeconds = true) {
         let days = Math.floor(secs / 86400);
         let hours = Math.floor(secs / 3600) % 24;
