@@ -6,27 +6,26 @@ import QtQuick
 Singleton {
     id: format
 
-    function duration(secs, short = true) {
-        let months = Math.floor(secs / 2592000);
+    function duration(secs, short = true, showSeconds = true) {
         let days = Math.floor(secs / 86400);
-        let hours = Math.floor(secs / 3600);
-        let minutes = Math.floor(secs / 60);
+        let hours = Math.floor(secs / 3600) % 24;
+        let minutes = Math.floor(secs / 60) % 60;
         let seconds = Math.floor(secs % 60);
 
+        let result = "";
+
         if (short) {
-            if (months > 0) return months + 'M';
-            if (days > 0) return days + 'd';
-            if (hours > 0) return hours + 'h';
-            if (minutes > 0) return minutes + 'm';
-            if (seconds >= 30) return seconds + 's';
+            if (days > 0) result += days + 'd ';
+            if (hours > 0) result += hours + 'h ';
+            if (minutes > 0) result += minutes + 'm ';
+            if (seconds >= 30 && showSeconds) result += seconds + 's ';
         } else {
-            if (months > 0) return months > 1 ? months + ' months ' : months + ' month ';
-            if (days > 0) return days > 1 ? days + ' days ' : days + ' day ';
-            if (hours > 0) return hours > 1 ? hours + ' hours ' : hours + ' hour ';
-            if (minutes > 0) return minutes > 1 ? minutes + ' minutes ' : minutes + ' minute ';
-            if (seconds >= 30) return seconds > 1 ? seconds + ' seconds' : seconds + ' second';
+            if (days > 0) result += days > 1 ? days + ' days ' : days + ' day ';
+            if (hours > 0) result += hours > 1 ? hours + ' hours ' : hours + ' hour ';
+            if (minutes > 0) result += minutes > 1 ? minutes + ' minutes ' : minutes + ' minute ';
+            if (seconds >= 30 && showSeconds) result += seconds > 1 ? seconds + ' seconds' : seconds + ' second';
         }
 
-        return 'just now';
+        return result.trim() || 'now';
     }
 }

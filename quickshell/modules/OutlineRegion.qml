@@ -18,6 +18,10 @@ Region {
     intersection: Intersection.Xor
 
     R {
+        target: root.topbar
+    }
+
+    R {
         target: root.panels?.media
     }
 

@@ -21,7 +21,7 @@ Item {
     implicitWidth: 400
 
     x: outline.width - width - 12
-    y: outline.height - height - outline.bar.height
+    y: outline.topbar.height
 
     property real visibility: Globals.panelPower ? 1 : 0
 
@@ -39,13 +39,13 @@ Item {
         onExited: Globals.panelPower = false
 
         MarginWrapperManager {
-            topMargin: 16
+            bottomMargin: 16
             leftMargin: 16
         }
 
         Rectangle {
             color: Theme.base
-            topLeftRadius: 16
+            bottomLeftRadius: 16
             clip: true
 
             Column {
@@ -92,7 +92,7 @@ Item {
 
                                     Text {
                                         visible: item.modelData.timeToEmpty
-                                        text: `${Formatting.duration(item.modelData.timeToEmpty)} remaining`
+                                        text: `${Formatting.duration(item.modelData.timeToEmpty, true, false)} remaining`
                                         color: Theme.subtext
                                         font.pointSize: 10
                                         opacity: 0.65
@@ -100,7 +100,7 @@ Item {
 
                                     Text {
                                         visible: item.modelData.timeToFull
-                                        text: `${Formatting.duration(item.modelData.timeToFull)} until full`
+                                        text: `${Formatting.duration(item.modelData.timeToFull, true, false)} until full`
                                         color: Theme.subtext
                                         font.pointSize: 10
                                         opacity: 0.65
@@ -117,20 +117,19 @@ Item {
     CornerRadius {
         implicitHeight: 32
         implicitWidth: 32
-        bottomRight: 16 * root.visibility
+        topRight: 16 * root.visibility
         color: Theme.base
 
         x: -16
-        y: parent.height - 32
     }
 
     CornerRadius {
         implicitHeight: 32
         implicitWidth: 32
-        bottomRight: 16 * root.visibility
+        topRight: 16 * root.visibility
         color: Theme.base
 
         x: parent.width - 32
-        y: -16
+        y: parent.height - 16
     }
 }

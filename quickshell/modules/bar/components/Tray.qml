@@ -34,24 +34,6 @@ RowLayout {
     MouseArea {
         implicitWidth: 24
         implicitHeight: 24
-        visible: UPower.devices.values.length
-
-        onClicked: m => {
-            let open = Globals.panelPower;
-            Globals.closePanels();
-            Globals.panelPower = !open;
-        }
-
-        TintedIcon {
-            size: 24
-            path: Icons.resolve(UPower.displayDevice.isPresent ? Icons.getBattery(UPower.displayDevice) : 'battery-full')
-            color: UPower.displayDevice.isPresent ? Icons.getBatteryColor(UPower.displayDevice) : Theme.text
-        }
-    }
-
-    MouseArea {
-        implicitWidth: 24
-        implicitHeight: 24
 
         onClicked: m => {
             let open = Globals.panelAudio;
