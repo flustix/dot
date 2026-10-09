@@ -153,16 +153,14 @@ hl.gesture({
     direction = "vertical",
     action = "workspace",
     fingers = 3,
-    scale = 1.6,
-    mods = "SUPER"
+    scale = 1.6
 })
 
 hl.gesture({
     direction = "horizontal",
     action = "scroll_move",
     fingers = 3,
-    scale = 2,
-    mods = "SUPER"
+    scale = 2
 })
 
 hl.gesture({
