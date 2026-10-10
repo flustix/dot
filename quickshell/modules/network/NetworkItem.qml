@@ -16,75 +16,71 @@ MouseArea {
 
     required property NetworkDevice modelData
 
+    readonly property NetworkDevice dev: modelData
     readonly property WiredDevice wired: modelData as WiredDevice
     readonly property WifiDevice wireless: modelData as WifiDevice
 
-    onEntered: hover.color = Theme.hover
-    onExited: hover.color = "transparent"
+    readonly property Network net: wired?.network
 
-    onClicked: m => {
-        console.log(JSON.stringify(wireless ? 'yea' : 'no'));
-    /* if (modelData.connected)
-            NetworkManager.down(modelData.id);
-        else
-            NetworkManager.up(modelData.id); */
+    readonly property string readableName: {
+        if (wired && net)
+            return net.nmSettings.find(x => x.id)?.id;
+
+        return dev.name;
     }
 
-    Rectangle {
-        id: hover
+    onClicked: m => {
+        if (root.dev.connected) {
+            root.dev.disconnect();
+        } else {
+            if (wired)
+                wired.network.connect();
+        }
+    }
+
+    HoverLayer {
+        area: root
         anchors.fill: parent
-        color: "transparent"
 
         // really really really REALLY fucking stupid way to do this because the
         // parent rectangle does not cut it off at all
-        topLeftRadius: Networking.devices.values.indexOf(root.modelData) == 0 ? 16 : 0
+        topLeftRadius: Networking.devices.values.indexOf(root.dev) == 0 ? 16 : 0
+    }
 
-        RowLayout {
-            height: parent.height
-            spacing: 12
+    RowLayout {
+        height: parent.height
+        spacing: 12
 
-            TintedIcon {
-                Layout.leftMargin: 12
-                size: 24
-                path: {
-                    if (!root.modelData.connected)
-                        return Icons.resolve('network-x');
+        TintedIcon {
+            Layout.leftMargin: 12
+            size: 24
+            path: Quickshell.iconPath(Icons.network(root.dev))
+        }
 
-                    if (root.modelData.type == DeviceType.Wifi)
-                        return Icons.resolve('wifi-high');
+        ColumnLayout {
+            spacing: -2
+            Layout.alignment: Qt.AlignLeft
+            Layout.fillWidth: true
 
-                    return Icons.resolve('network');
-                }
-                opacity: root.modelData.connected ? 1 : 0.5
-            }
-
-            ColumnLayout {
-                spacing: -2
-                Layout.alignment: Qt.AlignLeft
-                Layout.fillWidth: true
-
-                RowLayout {
-                    Text {
-                        text: root.modelData.name || root.modelData.address
-                        color: Theme.text
-                        font.pointSize: 12
-                    }
-
-                    Text {
-                        text: root.modelData.address
-                        color: Theme.subtext
-                        font.pointSize: 10
-                        visible: root.modelData.name
-                    }
+            RowLayout {
+                Text {
+                    text: root.readableName
+                    color: Theme.text
+                    font.pointSize: 12
                 }
 
                 Text {
-                    text: {
-                        return ConnectionState.toString(root.modelData.state);
-                    }
+                    text: root.modelData.name
                     color: Theme.subtext
                     font.pointSize: 10
+                    visible: root.modelData.name != root.readableName
                 }
+            }
+
+            Text {
+                text: ConnectionState.toString(root.dev.state)
+                color: Theme.subtext
+                font.pointSize: 10
             }
         }
     }

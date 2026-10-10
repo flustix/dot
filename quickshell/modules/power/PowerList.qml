@@ -68,7 +68,7 @@ Item {
                             TintedIcon {
                                 Layout.leftMargin: 12
                                 size: 24
-                                path: Qt.resolvedUrl(`${Quickshell.shellDir}/icons/${Icons.getBattery(item.modelData)}`)
+                                path: Quickshell.iconPath(Icons.getBattery(item.modelData))
                                 color: Icons.getBatteryColor(item.modelData)
                             }
 
@@ -85,7 +85,7 @@ Item {
 
                                 RowLayout {
                                     Text {
-                                        text: `${item.modelData.percentage * 100}%`
+                                        text: `${Math.floor(item.modelData.percentage * 100)}%`
                                         color: Theme.subtext
                                         font.pointSize: 10
                                     }

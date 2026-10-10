@@ -2,14 +2,12 @@ pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Networking
-import Quickshell.Services.Pipewire
 import Quickshell.Services.SystemTray
-import Quickshell.Services.UPower
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 
 import qs.components
-import qs.managers.net
 import qs.modules.stickers
 import qs.utils
 
@@ -31,7 +29,7 @@ RowLayout {
         implicitWidth: 4
     }
 
-    MouseArea {
+    /* MouseArea {
         implicitWidth: 24
         implicitHeight: 24
 
@@ -47,11 +45,17 @@ RowLayout {
             size: 24
             path: Icons.resolve(Icons.volume(node.audio.volume))
         }
-    }
+    } */
 
     MouseArea {
-        implicitWidth: 24
-        implicitHeight: 24
+        implicitWidth: 20
+        implicitHeight: 20
+        hoverEnabled: true
+
+        Tooltip {
+            visible: parent.containsMouse
+            text: 'Network Devices'
+        }
 
         property var active: Networking.devices.values.find(x => x.connected)
 
@@ -62,15 +66,20 @@ RowLayout {
         }
 
         TintedIcon {
-            size: 24
-            path: Icons.resolve(parent.active ? (parent.active.type == 1 ? 'wifi-high' : 'network') : 'network-x')
-            opacity: parent.active ? 1 : 0.5
+            anchors.fill: parent
+            path: Quickshell.iconPath(Icons.network(parent.active))
         }
     }
 
     MouseArea {
-        implicitWidth: 24
-        implicitHeight: 24
+        implicitWidth: 20
+        implicitHeight: 20
+        hoverEnabled: true
+
+        Tooltip {
+            visible: parent.containsMouse
+            text: 'Stickers'
+        }
 
         onClicked: CLI.run("zsh", ["-c", "find ~/Pictures/Stickers -type f | sort | vicinae dmenu"], res => {
             if (!res.success)
@@ -80,8 +89,8 @@ RowLayout {
         })
 
         TintedIcon {
-            size: 24
-            path: Icons.resolve("sticker")
+            anchors.fill: parent
+            path: Quickshell.iconPath("insert-image-symbolic")
         }
     }
 }

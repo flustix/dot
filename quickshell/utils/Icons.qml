@@ -1,6 +1,7 @@
 pragma Singleton
 
 import Quickshell
+import Quickshell.Networking
 import Quickshell.Services.UPower
 import QtQuick
 
@@ -13,20 +14,48 @@ Singleton {
         return Qt.resolvedUrl(`${Quickshell.shellDir}/icons/${icon}`);
     }
 
+    function network(net: NetworkDevice): string {
+        if (!net) return "network-wired-offline-symbolic";
+
+        if (net.type == DeviceType.Wireless) { 
+            switch (net.state) {
+                case ConnectionState.Connected:
+                    return "network-wireless-symbolic";
+                case ConnectionState.Connecting:
+                case ConnectionState.Disconnecting:
+                    return "network-wireless-acquiring-symbolic";
+                case ConnectionState.Disconnected:
+                    return "network-wireless-disconnected-symbolic";
+                case ConnectionState.Unknown:
+                    return "network-wireless-no-route-symbolic";
+            }
+        } else if (net.type == DeviceType.Wired) {
+            switch (net.state) {
+                case ConnectionState.Connected:
+                    return "network-wired-symbolic";
+                case ConnectionState.Connecting:
+                case ConnectionState.Disconnecting:
+                    return "network-wired-acquiring-symbolic";
+                case ConnectionState.Disconnected:
+                    return "network-wired-disconnected-symbolic";
+                case ConnectionState.Unknown:
+                    return "network-wired-no-route-symbolic";
+            }
+        }
+    }
+
     function getBattery(dev: UPowerDevice): string {
         if (dev.state == UPowerDeviceState.Charging)
             return "battery-charging";
 
-        if (dev.percentage > .9)
-            return "battery-full";
-        if (dev.percentage > .6)
-            return "battery-high";
-        if (dev.percentage > .3)
-            return "battery-medium";
-        if (dev.percentage > .1)
-            return "battery-low";
+        if (dev.percentage > .75)
+            return "battery-full-symbolic";
+        if (dev.percentage > .50)
+            return "battery-good-symbolic";
+        if (dev.percentage > .25)
+            return "battery-low-symbolic";
 
-        return "battery-empty";
+        return "battery-empty-symbolic";
     }
 
     function getBatteryColor(dev: UPowerDevice): string {

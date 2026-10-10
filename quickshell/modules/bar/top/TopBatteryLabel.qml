@@ -1,6 +1,7 @@
+import Quickshell
+import Quickshell.Services.UPower
 import QtQuick
 import QtQuick.Layouts
-import Quickshell.Services.UPower
 
 import qs.components
 import qs.utils
@@ -31,18 +32,18 @@ MouseArea {
     function setStatusUpdate(text) {
         statusUpdateText = text;
         showingStatusUpdate = true;
-        statusUpdateIdle.running = true
+        statusUpdateIdle.running = true;
     }
 
     onStateChanged: {
         if (state == UPowerDeviceState.Charging) {
             setStatusUpdate("Started Charging");
         } else if (state == UPowerDeviceState.Discharging) {
-            setStatusUpdate("Stopped Charging")
+            setStatusUpdate("Stopped Charging");
         } else if (state == UPowerDeviceState.FullyCharged) {
-            setStatusUpdate("Finished Charging")
+            setStatusUpdate("Finished Charging");
         }
-    } 
+    }
 
     Timer {
         id: statusUpdateIdle
@@ -61,7 +62,7 @@ MouseArea {
         x: 8
         opacity: 1 - Formatting.remap(statusAnim.opacity, 0, .75)
 
-        property var col: root.dev.isPresent ? Icons.getBatteryColor(root.dev) : Theme.text;
+        property var col: root.dev.isPresent ? Icons.getBatteryColor(root.dev) : Theme.text
 
         Text {
             visible: root.dev.isPresent
@@ -72,7 +73,7 @@ MouseArea {
 
         TintedIcon {
             size: 20
-            path: Icons.resolve(root.dev.isPresent ? Icons.getBattery(root.dev) : 'battery-full')
+            path: Quickshell.iconPath(root.dev.isPresent ? Icons.getBattery(root.dev) : "battery-symbolic")
             color: idle.col
         }
     }

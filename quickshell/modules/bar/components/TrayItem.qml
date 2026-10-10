@@ -1,7 +1,9 @@
 import Quickshell
 import Quickshell.Services.SystemTray
-import Quickshell.Widgets
 import QtQuick
+import QtQuick.Controls
+
+import qs.components
 
 MouseArea {
     id: root
@@ -12,21 +14,28 @@ MouseArea {
     height: 24
     acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
 
-    IconImage {
+    hoverEnabled: true
+    readonly property string title: modelData.tooltipTitle || modelData.title
+
+    Tooltip {
+        visible: root.containsMouse && root.title
+        text: root.title
+    }
+
+    TintedIcon {
         anchors.fill: parent
-        source: parent.modelData.icon || "fallback-icon-name"
+        path: parent.modelData.icon
+        effect: true
     }
 
     onClicked: m => {
-        console.log(JSON.stringify(modelData));
         if (m.button === Qt.LeftButton)
             modelData.activate();
         else if (m.button === Qt.MiddleButton)
             modelData.secondaryActivate();
         else {
             const gp = root.mapToGlobal(m.x, m.y);
-            console.log(gp);
-            modelData.display(window, gp.x - 1440, gp.y);
+            modelData.display(window, gp.x - window.screen.x, gp.y);
         }
     }
 }
