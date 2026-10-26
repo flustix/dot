@@ -5,6 +5,7 @@ import qs.modules.audio
 import qs.modules.media
 import qs.modules.network
 import qs.modules.power
+import qs.modules.stickers
 
 Item {
     id: root
@@ -17,6 +18,8 @@ Item {
     readonly property MediaPanel media: mp
     readonly property PowerList power: pl
     readonly property NetworkList network: nl
+
+    Skeleton {}
 
     AudioPanel {
         id: ap

@@ -133,21 +133,10 @@ hl.bind("SUPER + SHIFT + Escape", function() SetZoom(1) end)
 hl.bind("SUPER + CONTROL + mouse_up", hl.dsp.group.next())
 hl.bind("SUPER + CONTROL + mouse_down", hl.dsp.group.prev())
 
--- Passtrough
-hl.bind(
-    "SHIFT + pause",
-    hl.dsp.send_shortcut({ window = "class:discord", mods = "CONTROL SHIFT", key = "D" }),
-    { transparent = true }
-)
-hl.bind(
-    "pause",
-    hl.dsp.send_shortcut({ window = "class:discord", mods = "CONTROL SHIFT", key = "M" })
-)
-
-hl.bind(
-    "scroll_lock",
-    hl.dsp.send_shortcut({ window = "class:discord", mods = "CONTROL SHIFT ALT", key = "F12" })
-)
+-- Globals
+hl.bind("pause", hl.dsp.global("discord:discord-toggle-mute"))
+hl.bind("SHIFT + pause", hl.dsp.global("discord:discord-toggle-deafen"))
+hl.bind("scroll_lock", hl.dsp.global("discord:discord-toggle-go-live-streaming"))
 
 hl.gesture({
     direction = "vertical",

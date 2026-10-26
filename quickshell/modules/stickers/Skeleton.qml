@@ -12,7 +12,7 @@ Item {
 
         onCurrentFrameChanged: {
             if (currentFrame === frameCount - 1) {
-                playing = false
+                playing = false;
             }
         }
     }
@@ -23,10 +23,13 @@ Item {
         repeat: true
         running: true
         onTriggered: {
-            var rng = Math.floor(Math.random() * 80000)
-            if (rng != 0) return;
-            image.currentFrame = 0
-            image.playing = true
+            var rng = Math.floor(Math.random() * 96000);
+
+            if (rng != 0)
+                return;
+
+            image.currentFrame = 0;
+            image.playing = true;
         }
     }
 }
